@@ -39,11 +39,11 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (!loggedIn) {
-      navigate('/login');
-    }
-  }, [loggedIn, navigate]);
+  // useEffect(() => {
+  //   if (!loggedIn) {
+  //     navigate('/login');
+  //   }
+  // }, [loggedIn, navigate]);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartList));
