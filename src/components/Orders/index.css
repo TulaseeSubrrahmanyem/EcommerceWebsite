@@ -1,0 +1,106 @@
+/* Default styles */
+.order-details-container {
+  
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .order-details-container h2{
+    font-size: 22px;
+    font-weight: 550;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #0967d2;
+    width: 100%;
+    margin-bottom: 40px;
+    color: #fff;
+    height: 40px;
+    padding: 10px;
+
+  }
+  .order-details-container h3{
+    font-size: 16px;
+    font-weight: 550;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  .order-container {
+    /* Your default order container styles */
+    background-color: rgb(247, 247, 247);
+    box-shadow:  3px 3px 5px #d8d6d6;
+    float: left;
+    width: 100%;
+    height: 210px;
+   margin: 15px;
+  }
+  
+  .order-item {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+    
+  }
+  
+  .item-image {
+    /* Your default item image styles */
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+  }
+  
+  .item-details {
+    /* Your default item details styles */
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+
+  }
+  
+  /* Media query for mobile view */
+  @media screen and (max-width: 767px) {
+    .order-item {
+      display: flex;
+      flex-direction: column; 
+      justify-content: start;
+      margin: 0px;
+     }
+     .item-details {
+      /* Your default item details styles */
+     display: flex;
+     flex-direction: column;
+     justify-content: space-evenly;
+     margin: 0px;
+     }
+     .order-container {
+      /* Your default order container styles */
+      background-color: rgb(247, 247, 247);
+      box-shadow:  3px 3px 5px #d8d6d6;
+      float: left;
+      width: 100%;
+      height: 100%
+     
+    }
+    .item-image {
+      /* Your default item image styles */
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+    /* Add any other mobile-specific styles here */
+  }
+  
+  /* Media query for desktop view */
+  @media screen and (min-width: 768px) {
+    .order-container {
+      /* Desktop specific styles */
+    }
+  
+    .item-details {
+      /* Desktop specific styles */
+    }
+  
+    /* Add any other desktop-specific styles here */
+  }
+  
