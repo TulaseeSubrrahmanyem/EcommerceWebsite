@@ -5,8 +5,8 @@ import './index.css';
 
 const LoginForm = ({ history }) => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("rahul");
+  const [password, setPassword] = useState('"rahul@2021"');
   const [showSubmitError, setShowSubmitError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -32,9 +32,8 @@ const LoginForm = ({ history }) => {
 
   const submitForm = async event => {
     event.preventDefault();
-    setUsername("rahul")
-    setPassword("rahul@2021")
-    const userDetails = { username: "rahul", password: "rahul@2021" };
+   
+    const userDetails = { username, password };
     const url = 'https://apis.ccbp.in/login';
     const options = {
       method: 'POST',
