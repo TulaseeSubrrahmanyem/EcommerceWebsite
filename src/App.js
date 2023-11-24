@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useCallback, useMemo} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
@@ -9,12 +9,11 @@ import NotFound from './components/NotFound';
 import OrderItems from './components/OrderItems';
 import OrderDetails from './components/Orders';
 import CartContext from './context/CartContext';
-import './App.css';
 import Cookie from 'js-cookie';
 
 const App = () => {
   const navigate = useNavigate();
-  
+
   const getInitialCart = () => {
     const storedCart = localStorage.getItem('cart');
     try {
@@ -24,78 +23,46 @@ const App = () => {
       return [];
     }
   };
-  
 
   const [cartList, setCartList] = useState(getInitialCart);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = Cookie.get('jwt_token');
-    if (token) {
-      setLoggedIn(true);
-      
-    } else {
-      setLoggedIn(false);
-    }
+    setLoggedIn(!!token);
   }, []);
-
-  // useEffect(() => {
-  //   if (!loggedIn) {
-  //     navigate('/login');
-  //   }
-  // }, [loggedIn, navigate]);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartList));
   }, [cartList]);
 
-  const removeAllCartItems = () => {
-    setCartList([]);
+  const updateCartList = (updatedList) => {
+    setCartList(updatedList);
   };
 
-  const incrementCartItemQuantity = (id) => {
-    setCartList((prevCartList) =>
-      prevCartList.map((eachCartItem) =>
-        id === eachCartItem.id
-          ? { ...eachCartItem, quantity: eachCartItem.quantity + 1 }
-          : eachCartItem
+  const removeAllCartItems = () => {
+    updateCartList([]);
+  };
+
+  const updateCartItemQuantity = (id, quantity) => {
+    updateCartList((prevCartList) =>
+      prevCartList.map((item) =>
+        id === item.id ? { ...item, quantity: item.quantity + quantity } : item
       )
     );
   };
 
-  const decrementCartItemQuantity = (id) => {
-    setCartList((prevCartList) => {
-      const productObject = prevCartList.find((eachCartItem) => eachCartItem.id === id);
-      if (productObject.quantity > 1) {
-        return prevCartList.map((eachCartItem) =>
-          id === eachCartItem.id
-            ? { ...eachCartItem, quantity: eachCartItem.quantity - 1 }
-            : eachCartItem
-        );
-      } else {
-        return prevCartList.filter((eachCartItem) => eachCartItem.id !== id);
-      }
-    });
-  };
-
   const removeCartItem = (id) => {
-    const updatedCartList = cartList.filter((eachCartItem) => eachCartItem.id !== id);
-    setCartList(updatedCartList);
+    updateCartList((prevCartList) => prevCartList.filter((item) => item.id !== id));
   };
 
   const addCartItem = (product) => {
-    const productObject = cartList.find((eachCartItem) => eachCartItem.id === product.id);
+    const existingProduct = cartList.find((item) => item.id === product.id);
 
-    if (productObject) {
-      setCartList((prevCartList) =>
-        prevCartList.map((eachCartItem) =>
-          productObject.id === eachCartItem.id
-            ? { ...eachCartItem, quantity: eachCartItem.quantity + product.quantity }
-            : eachCartItem
-        )
-      );
+    if (existingProduct) {
+      updateCartItemQuantity(product.id, product.quantity);
     } else {
-      setCartList((prevCartList) => [...prevCartList, product]);
+      updateCartList((prevCartList) => [...prevCartList, product]);
     }
   };
 
@@ -105,13 +72,11 @@ const App = () => {
         cartList,
         addCartItem,
         removeCartItem,
-        incrementCartItemQuantity,
-        decrementCartItemQuantity,
+        updateCartItemQuantity,
         removeAllCartItems,
       }}
     >
       <Routes>
-        {/* Routes based on authentication status */}
         {loggedIn ? (
           <>
             <Route exact path="/" element={<Home />} />
@@ -122,10 +87,7 @@ const App = () => {
             <Route exact path="/orders" element={<OrderDetails />} />
           </>
         ) : (
-          // Redirect to login if not authenticated
-          <>
           <Route path="/" element={<Navigate to="/login" />} />
-          </>
         )}
         <Route path="/login" element={<LoginForm />} />
         <Route path="*" element={<NotFound />} />
