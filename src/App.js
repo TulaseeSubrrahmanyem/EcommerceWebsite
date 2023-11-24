@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate,useNavigate } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
 import Products from './components/Products';
@@ -9,12 +9,12 @@ import NotFound from './components/NotFound';
 import OrderItems from './components/OrderItems';
 import OrderDetails from './components/Orders';
 import CartContext from './context/CartContext';
+import ProtectedRoute from './components/ProtectedRoute'
 import Cookie from 'js-cookie';
 
 const App = () => {
-  const navigate = useNavigate();
-
-  const getInitialCart = () => {
+  const navigate=useNavigate()
+  const [cartList, setCartList] = useState(() => {
     const storedCart = localStorage.getItem('cart');
     try {
       return storedCart ? JSON.parse(storedCart) : [];
@@ -22,15 +22,16 @@ const App = () => {
       console.error('Error parsing cart data:', error);
       return [];
     }
-  };
+  });
 
-  const [cartList, setCartList] = useState(getInitialCart);
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const token = Cookie.get('jwt_token');
-    setLoggedIn(!!token);
-  }, []);
+  // useEffect(() => {
+  //   const token = Cookie.get('jwt_token');
+  //   setLoggedIn(!!token);
+   
+  // }, []);
+
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartList));
@@ -76,23 +77,23 @@ const App = () => {
         removeAllCartItems,
       }}
     >
-      <Routes>
-        {loggedIn ? (
-          <>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/products" element={<Products />} />
-            <Route exact path="/products/:id" element={<ProductItemDetails />} />
-            <Route exact path="/cart" element={<Cart />} />
-            <Route exact path="/orderItems" element={<OrderItems />} />
-            <Route exact path="/orders" element={<OrderDetails />} />
-          </>
-        ) : (
-          <Route path="/" element={<Navigate to="/login" />} />
-        )}
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </CartContext.Provider>
+    
+        <Routes>
+          <Route element={<ProtectedRoute/>}>
+          
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductItemDetails />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/orderItems" element={<OrderItems />} />
+              <Route path="/orders" element={<OrderDetails />} />
+          </Route>
+           
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/notfound" element={<NotFound />} />
+        </Routes>
+       
+   </CartContext.Provider>
   );
 };
 
