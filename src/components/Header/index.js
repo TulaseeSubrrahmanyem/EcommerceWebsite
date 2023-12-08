@@ -7,6 +7,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ShopTwoIcon from '@mui/icons-material/ShopTwo';
 import './index.css';
+//import EcommerceLogo from '../../../public/EcommerceLogo.png';
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const Header = () => {
           <Link to="/">
             <img
               className="website-logo"
-              src="https://images.ctfassets.net/jicu8fwm4fvs/1lrtg12IpcEIn3YslqcOp6/141fa77f70c58b539ef062f0841fa091/amway_big.png?q=60&fm=png"
+              src="/EcommerceLogo.png"
               alt="website logo"
             />
           </Link>
@@ -58,7 +60,7 @@ const Header = () => {
           <Link to="/">
             <img
               className="website-logo"
-              src="https://images.ctfassets.net/jicu8fwm4fvs/1lrtg12IpcEIn3YslqcOp6/141fa77f70c58b539ef062f0841fa091/amway_big.png?q=60&fm=png"
+              src="/EcommerceLogo.png"
               alt="website logo"
             />
           </Link>

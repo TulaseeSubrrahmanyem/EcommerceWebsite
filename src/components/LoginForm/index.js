@@ -98,7 +98,7 @@ const LoginForm = ({ history }) => {
   return (
     <div className="login-form-container">
       <img
-        src="https://images.ctfassets.net/jicu8fwm4fvs/1lrtg12IpcEIn3YslqcOp6/141fa77f70c58b539ef062f0841fa091/amway_big.png?q=60&fm=png"
+      src="/EcommerceLogo.png"
         className="login-website-logo-mobile-img"
         alt="website logo"
       />
@@ -109,7 +109,7 @@ const LoginForm = ({ history }) => {
       />
       <form className="form-container" onSubmit={submitForm}>
         <img
-          src="https://images.ctfassets.net/jicu8fwm4fvs/1lrtg12IpcEIn3YslqcOp6/141fa77f70c58b539ef062f0841fa091/amway_big.png?q=60&fm=png"
+        src="/EcommerceLogo.png"
           className="login-website-logo-desktop-img"
           alt="website logo"
         />
