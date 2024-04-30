@@ -9,7 +9,7 @@ const Home = () => {
       <Header />
       <div className="home-container">
         <div className="home-content">
-          <h1 className="home-heading">Clothes That Get YOU Noticed</h1>
+          <h1 className="home-heading">Clothes That Get You Noticed</h1>
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-home-img.png"
             alt="clothes that get you noticed"
