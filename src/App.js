@@ -67,6 +67,25 @@ const App = () => {
     }
   };
 
+  const incrementCartItemQuantity = (id) => {
+  updateCartList((prevCartList) =>
+    prevCartList.map((item) =>
+      id === item.id ? { ...item, quantity: item.quantity + 1 } : item
+    )
+  );
+};
+
+const decrementCartItemQuantity = (id) => {
+  updateCartList((prevCartList) =>
+    prevCartList.map((item) =>
+      id === item.id && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
+    )
+  );
+};
+
+
   return (
     <CartContext.Provider
       value={{
@@ -75,6 +94,9 @@ const App = () => {
         removeCartItem,
         updateCartItemQuantity,
         removeAllCartItems,
+        incrementCartItemQuantity,
+        decrementCartItemQuantity
+        
       }}
     >
     
